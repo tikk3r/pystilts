@@ -131,7 +131,6 @@ def tmatch1(**kwargs):
     keys['ocmd'] = dict(v=['ocmd'], r=False)
     keys['params'] = dict(v=['radius', 'params'], r=False, u=u.arcsec)
     keys['out'] = dict(v=['outfile', 'out'], r=True)
-    keys['fixcols'] = dict(v=['fixcols'], r=False, d='dups')
     # write the command
     commandargs = command_arguments(keys, kwargs, 'tmatch1')
     for key in commandargs:
