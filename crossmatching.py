@@ -58,7 +58,88 @@ def tapskymatch(**kwargs):
     runcommand(command)
 
 
+def tmatch1(**kwargs):
+    """
+    keywords are:
+    
+    in1         string, The location of the input table. This may take 
+                one of the following forms: 
+                
+                - A filename.
+                - A URL.
+                           
+    matcher     string, Defines the nature of the matching that will be 
+                performed. Depending on the name supplied, this may be 
+                positional matching using celestial or Cartesian coordinates, 
+                exact matching on the value of a string column, or other things.
+                 
+                must be one of the following:
+                
+                - sky: The sky matcher compares positions on the celestial 
+                       sphere with a fixed error radius. Rows are considered 
+                       to match when the two (ra, dec) positions are within 
+                       max-error arcseconds of each other along a great circle. 
 
+                    values: 
+                        ra/degrees: Right Ascension 
+                        dec/degrees: Declination
+                    params:
+                        max-error/arcsec: Maximum separation along a great circle
+
+                - skyerr
+                - skyellipse
+                - sky3d
+                - exact
+                - 1d, 2d, ...
+                - 2d_anisotropic, ...
+                - 2d_cuboid, ...
+                - 1d_err, 2d_err, ...
+                - 2d_ellipse
+                
+                this changes the values that need to be set
+                
+    values     string, Defines the values from table 1 which are used to 
+                determine whether a match has occurred. These will typically 
+                be coordinate values such as RA and Dec and perhaps some 
+                per-row error values as well, though exactly what values are 
+                required is determined by the kind of match as determined by 
+                matcher.
+
+    icmd
+    ocmd
+    params      string, Fixed value(s) giving the parameters of the match 
+                (typically an error radius). If more than one value is required, 
+                the values should be separated by spaces. 
+    out
+    fixcols
+    
+    :param kwargs: 
+    :return: 
+    """
+    # define command
+    command = STILTS
+    command += ' tmatch1 '
+    # define allowed arguments (must be in allowed or special)
+    # v = aliases for command call
+    # r = will throw exception if not defined
+    # d = sets default value (if r = False)
+    keys = dict()
+    keys['in'] = dict(v=['in'], r=True)
+    keys['matcher'] = dict(v=['matcher'], r=False, d='sky')
+    keys['values'] = dict(v=['values'], r=True)
+    keys['icmd'] = dict(v=['icmd'], r=False)
+    keys['ocmd'] = dict(v=['ocmd'], r=False)
+    keys['params'] = dict(v=['radius', 'params'], r=False, u=u.arcsec)
+    keys['out'] = dict(v=['outfile', 'out'], r=True)
+    keys['fixcols'] = dict(v=['fixcols'], r=False, d='dups')
+    # write the command
+    commandargs = command_arguments(keys, kwargs, 'tmatch1')
+    for key in commandargs:
+        command += commandargs[key]
+    # print(command)
+    # run command
+    runcommand(command)
+    
 
 def tmatch2(**kwargs):
     """

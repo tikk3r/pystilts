@@ -26,8 +26,8 @@ __all__ = ['addcols', 'addcol',
            'renamecol', 'renamecols',
            'replacecol', 'replacecols',
            'tpipe', 'updatemeta',
-           'tapskymatch', 'tmatch2',
-           'clean']
+           'tapskymatch', 'tmatch1',
+           'tmatch2', 'clean']
 
 
 # =============================================================================
@@ -82,6 +82,7 @@ updatemeta = pipelines.updatemetadata
 # Crossmatching functions
 # =============================================================================
 tapskymatch = crossmatching.tapskymatch
+tmatch1 = crossmatching.tmatch1
 tmatch2 = crossmatching.tmatch2
 
 
